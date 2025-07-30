@@ -4,7 +4,7 @@ import { CurrentUser } from 'src/auth/decorators/user-decorator';
 import { Auth } from 'src/auth/decorators/auth-decorator';
 import { UserDto } from 'src/todolist/todolist.dto';
 
-@Controller('user')
+@Controller('user/profile')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 

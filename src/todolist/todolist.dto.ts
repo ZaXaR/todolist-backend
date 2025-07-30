@@ -2,11 +2,9 @@ import { IsBoolean, IsEmail, IsOptional, IsString, Max, Min, MinLength } from "c
 
 export class TodoListDto {
     @IsString()
-    @Min(6)
     title: string;
 
     @IsString()
-    @Min(6)
     @Max(100)
     text: string;
 
