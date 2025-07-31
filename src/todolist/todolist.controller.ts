@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from '@nest
 import { TodolistService } from './todolist.service';
 import { CurrentUser } from 'src/auth/decorators/user-decorator';
 import { Auth } from 'src/auth/decorators/auth-decorator';
-import { TodoListDto } from './todolist.dto';
+import { TodoListDto, UpdateTodoListDto } from './todolist.dto';
 
 @Controller('todolist')
 export class TodolistController {
@@ -36,10 +36,12 @@ export class TodolistController {
 
   @Put(':todoId')
   @Auth()
-  async updateComplateTask(
-    @CurrentUser('id') id: string,
-    @Param('todoId') todoId: string
+  async updateTodo(
+    @CurrentUser('id') userId: string,
+    @Param('todoId') todoId: string,
+    @Body() dto: UpdateTodoListDto
   ) {
-    return this.todolistService.updateCompleteTask(id, todoId);
+    return this.todolistService.updateTodo(userId, todoId, dto);
   }
+
 }

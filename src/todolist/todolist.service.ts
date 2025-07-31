@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { TodoListDto } from './todolist.dto';
+import { TodoListDto, UpdateTodoListDto } from './todolist.dto';
 
 @Injectable()
 export class TodolistService {
@@ -43,11 +43,15 @@ export class TodolistService {
     }
 
 
-    async updateCompleteTask(userId: string, todoId: string): Promise<TodoListDto> {
+    async updateTodo(
+        userId: string,
+        todoId: string,
+        dto: UpdateTodoListDto
+    ): Promise<TodoListDto> {
         const existingTask = await this.prisma.todoList.findFirst({
             where: {
                 id: todoId,
-                userId: userId,
+                userId,
             },
         });
 
@@ -58,7 +62,10 @@ export class TodolistService {
         const updatedTask = await this.prisma.todoList.update({
             where: { id: todoId },
             data: {
-                isCompleted: !existingTask.isCompleted,
+                title: dto.title ?? existingTask.title,
+                text: dto.text ?? existingTask.text,
+                endDate: dto.endDate ?? existingTask.endDate,
+                isCompleted: dto.isCompleted ?? existingTask.isCompleted,
             },
         });
 
@@ -68,6 +75,7 @@ export class TodolistService {
             isCompleted: updatedTask.isCompleted,
             endDate: updatedTask.endDate ?? undefined,
         };
+
     }
 
 }

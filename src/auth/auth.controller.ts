@@ -45,7 +45,6 @@ export class AuthController {
     this.authService.addRefreshTokenToResponse(res, refreshToken)
 
     return response;
-    // return this.authService.refreshToken(refreshToken);
   }
 
   @HttpCode(200)

@@ -77,22 +77,6 @@ export class AuthService {
             secure: true,
             sameSite: 'none'
         })
-        // try {
-        //     const payload = await this.jwt.verifyAsync(refreshToken);
-        //     const user = await this.userService.getById(payload.id);
-
-        //     if (!user) throw new NotFoundException('User not found');
-
-        //     const { accessToken, refreshToken: newRefreshToken } = this.issueToken(user.id);
-
-        //     return {
-        //         user: { id: user.id, email: user.email },
-        //         access_token: accessToken,
-        //         refresh_token: newRefreshToken,
-        //     };
-        // } catch (error) {
-        //     throw new BadRequestException('Invalid or expired refresh token');
-        // }
     }
 
     private issueToken(userId: string) {

@@ -1,6 +1,8 @@
+import { Type } from "class-transformer";
 import { IsBoolean, IsEmail, IsOptional, IsString, Max, Min, MinLength } from "class-validator";
 
 export class TodoListDto {
+    @IsOptional()
     @IsString()
     title: string;
 
@@ -8,11 +10,34 @@ export class TodoListDto {
     @Max(100)
     text: string;
 
+    @IsOptional()
     @IsBoolean()
-    isCompleted: boolean;
+    isCompleted?: boolean;
+
 
     @IsOptional()
+    @Type(() => Date)
     endDate?: Date;
+}
+
+export class UpdateTodoListDto {
+    @IsOptional()
+    @IsString()
+    title?: string;
+
+    @IsOptional()
+    @IsString()
+    @Max(100)
+    text?: string;
+
+    @IsOptional()
+    @Type(() => Date)
+    endDate?: Date;
+
+    @IsOptional()
+    @IsBoolean()
+    isCompleted?: boolean;
+
 }
 
 export class UserDto extends TodoListDto {
